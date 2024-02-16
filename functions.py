@@ -169,4 +169,4 @@ def deleteOldSaves(sortedFilenamesByTime, filePathToSaves):
         if save != sortedFilenamesByTime[-1]:
             save = makeFullPathToFile(filePathToSaves, save, True)
             deleteSave(save)
-    
+
