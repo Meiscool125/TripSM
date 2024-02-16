@@ -124,6 +124,7 @@ while CurrentlyRunning:
                                 except Exception as exception:
                                     e = exception
                                     print(exception)
+                                    failureTime = currentTime
                                     scene = "Failure Scene"
 
                                 remakeFileButtonList(prunedList,allFoundSaveFiles,filePathToSaves)
@@ -151,7 +152,6 @@ while CurrentlyRunning:
                                 elif not choseRealFolder:
                                     if errorOutweighs:
                                         errorOutweighs = False
-                                        break
                                     else:
                                         failureTime = currentTime
                                         e = "No folder chosen"
