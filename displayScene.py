@@ -57,7 +57,7 @@ class UsmanButton(pygame.sprite.Sprite):
         self.textToBlit = self.font.render(self.text, True, self.color)
 
 # scene is set, so start the show!
-def displaySceneText(scene,screen,filePathToSaves,mostRecentlyClickedButton):
+def displaySceneText(scene,screen,filePathToSaves,mostRecentlyClickedButton,exception):
     if scene == "Introduction":
         blitText("Ficsit™ welcomes you to the", mainFont, black, (700 // 2,120),screen, True)
         blitText("Simple Satisfactory Save Manager™!", mainFont, black, (700 // 2,150), screen, True)
@@ -76,6 +76,10 @@ def displaySceneText(scene,screen,filePathToSaves,mostRecentlyClickedButton):
         blitText(f'Choose an action for "{mostRecentlyClickedButton.text}":', smallFont, black,(700 // 2, 50),screen, True)
     if scene == "Success Scene":
         blitText(f'Success!', bigFontNormalText, black,(700 // 2, 300),screen, True)
+    if scene == "Failure Scene":
+        blitText(f'Error:', bigFontNormalText, black, (700 // 2, 250), screen, True)
+        blitText(f'{exception}', miniFont, black, (0, 300), screen, True)
+
 
 
 # outline for how to make your very own "Usman Button™"!

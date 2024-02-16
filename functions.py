@@ -149,11 +149,13 @@ def getAllOfOneSave(fileList,fileToEdit,ignoreErrors):
 
 def backupSaveFile(sortedFilenamesByTime,filePathToSaves):
     backupFolder = openFileBrowser("Select a folder to backup this save to")
+    if backupFolder == "":
+        return False
     mostRecentSaveFile = sortedFilenamesByTime[-1]
     mostRecentSaveFilePath = makeFullPathToFile(filePathToSaves, mostRecentSaveFile, True)
     backupFilePath = makeFullPathToFile(backupFolder, mostRecentSaveFile, True)
     shutil.copy(mostRecentSaveFilePath, backupFilePath)
-
+    return True
 def attemptFileSortByTime(allOfOneSaveList):
     try:
         sortedFilenamesByTime = sorted(allOfOneSaveList, key=extractTimestamp)

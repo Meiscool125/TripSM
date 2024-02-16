@@ -20,6 +20,10 @@ prunedList = []
 saveFolderSelected = False
 button = None
 mostRecentlyClickedButton = None
+choseRealFolder = False
+e = None
+errorOutweighs = False
+
 
 # screen setup
 screen = pygame.display.set_mode((700, 700))
@@ -53,13 +57,16 @@ while CurrentlyRunning:
     screen.fill((128,128,128))
 
     # using function from displayScene.py to show text onscreen
-    displaySceneText(scene,screen,filePathToSaves,mostRecentlyClickedButton)
+    displaySceneText(scene,screen,filePathToSaves,mostRecentlyClickedButton,e)
 
     # extra text that can popup
     if showPleaseSelectFolderText == True and scene == "Enter Satisfactory Path":
         blitText("Please select a folder!", mainFont, black, (700 // 2, 350), screen, True)
     if scene == "Success Scene":
         if successScene(successTime, currentTime) == True:
+            scene = "Main Menu"
+    if scene == "Failure Scene":
+        if successScene(failureTime, currentTime) == True:
             scene = "Main Menu"
 
     #event handling
@@ -111,7 +118,12 @@ while CurrentlyRunning:
                                 scene = "Main Menu"
 
                             if button == deleteButton: # delete all of that save file button
-                                deleteMultipleSaves(allFoundSaveFiles,fileToEdit,filePathToSaves)
+                                try:
+                                    deleteMultipleSaves(allFoundSaveFiles,fileToEdit,filePathToSaves)
+                                except Exception as exception:
+                                    e = exception
+                                    print(exception)
+                                    scene = "Failure Scene"
                                 remakeFileButtonList(prunedList,allFoundSaveFiles,filePathToSaves)
                                 currentTime = pygame.time.get_ticks() / 1000 - startTime
                                 successTime = currentTime
@@ -120,15 +132,36 @@ while CurrentlyRunning:
                             if button == backupButton: #backup most recent file of a save group
                                 allOfOneSaveList = getAllOfOneSave(allFoundSaveFiles,fileToEdit,False)
                                 sortedFilenamesByTime = attemptFileSortByTime(allOfOneSaveList)
-                                backupSaveFile(sortedFilenamesByTime,filePathToSaves)
+                                try:
+                                    choseRealFolder = backupSaveFile(sortedFilenamesByTime,filePathToSaves)
+                                except Exception as exception:
+                                    e = exception
+                                    print(exception)
+                                    errorOutweighs = True
+                                    failureTime = currentTime
+                                    scene = "Failure Scene"
                                 currentTime = pygame.time.get_ticks() / 1000 - startTime
                                 successTime = currentTime
-                                scene = "Success Scene"
+                                if choseRealFolder:
+                                    scene = "Success Scene"
+                                elif not choseRealFolder:
+                                    if errorOutweighs:
+                                        errorOutweighs = False
+                                        break
+                                    else:
+                                        failureTime = currentTime
+                                        e = "No folder chosen"
+                                        scene = "Failure Scene"
 
                             if button == deleteOldSavesButton: # take a guess
                                 allOfOneSaveList = getAllOfOneSave(allFoundSaveFiles,fileToEdit,False)
                                 sortedFilenamesByTime = attemptFileSortByTime(allOfOneSaveList)
-                                deleteOldSaves(sortedFilenamesByTime, filePathToSaves)
+                                try:
+                                    deleteOldSaves(sortedFilenamesByTime, filePathToSaves)
+                                except Exception as exception:
+                                    e = exception
+                                    print(exception)
+                                    scene = "Failure Scene"
                                 remakeFileButtonList(prunedList,allFoundSaveFiles,filePathToSaves)
                                 currentTime = pygame.time.get_ticks() / 1000 - startTime
                                 successTime = currentTime
