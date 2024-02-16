@@ -1,0 +1,30 @@
+main features:
+delete saves
+backup saves
+delete all saves except for current and autosaves
+
+features to add on eventually:
+auto-detect path
+
+
+
+
+main menu:
+button that says "Backup saves"
+button that says "Delete saves"
+button that says "Keep only the most recent save and delete older versions."
+
+
+NEXT TO DO: work on button that says "Keep only the most recent save and delete older versions." line 129
+backing up saves still says Sucess! even if you dont select a backup folder
+
+
+
+"C:\Users\datha\AppData\Local\FactoryGame\Saved\SaveGames\76561199105270576"
+
+"""
+if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+    # Get the mouse position
+    x, y = pygame.mouse.get_pos()
+    print("Mouse clicked at ({}, {})".format(x, y))
+"""
