@@ -173,6 +173,7 @@ while CurrentlyRunning:
                                 currentTime = pygame.time.get_ticks() / 1000 - startTime
                                 successTime = currentTime
                                 scene = "Success Scene"
+
         # making sure that buttons cant be clicked too many times a second
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             mouseAlreadyDown = False
