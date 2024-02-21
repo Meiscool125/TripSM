@@ -1,1 +1,1 @@
-Welcome to the Simple Satisfactory Save Manager! With this project, you can easily manage your saves. (theres probably bugs, let me know if you find any)
+Welcome to the Simple Satisfactory Save Manager! With this project, you can easily manage your saves. (there's probably bugs, let me know if you find any. if I ever feel like it, I might get around to fixing the bugs)

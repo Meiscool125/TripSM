@@ -63,10 +63,10 @@ while CurrentlyRunning:
     if showPleaseSelectFolderText == True and scene == "Enter Satisfactory Path":
         blitText("Please select a folder!", mainFont, black, (700 // 2, 350), screen, True)
     if scene == "Success Scene":
-        if successScene(successTime, currentTime) == True:
+        if successScene(successTime, currentTime):
             scene = "Main Menu"
     if scene == "Failure Scene":
-        if successScene(failureTime, currentTime) == True:
+        if successScene(failureTime, currentTime):
             scene = "Main Menu"
 
     #event handling
